@@ -8,17 +8,17 @@ jobs:
       matrix:
         conf:
           - dir: develop
+            harbor-project: library
+            artifact-name: dev-server
     runs-on: ubuntu-latest
     env:
       preDockerBuildCmd: ""
       manifest-repo: kigawa01/k8s-system
       manifestFile: ./develop/develop.yml
       dockerFile: Dockerfile
-      artifact-name: dev-server
       harbor-user: robot$develop
-      harbor-project: library
       harbor-repo:
-        harbor.kigawa.net/${{ env.harbor-project }}/${{ env.artifact-name }}:${{ github.ref_name }}-${{ github.sha }}
+        harbor.kigawa.net/${{ matrix.conf.harbor-project }}/${{ matrix.conf.artifact-name }}:${{ github.ref_name }}-${{ github.sha }}
       dockerArg: ""
       dir: ${{ matrix.conf.dir }}
 
