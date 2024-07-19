@@ -1,13 +1,13 @@
 FROM ubuntu:latest
 LABEL authors="kigawa"
 
-ENV PUBKEY=""
 
-RUN apt update && \
-    apt install -y \
-    openssh-server \
-    && \
-    mkdir /run/sshd
+RUN apt update
+####################################################
+RUN apt install -y  openssh-server \
+    && mkdir /run/sshd \
+ENV PUBKEY=""
+####################################################
 
 EXPOSE 22
 
