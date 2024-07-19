@@ -17,4 +17,5 @@ if [ -z "${PUBKEY:-}" ]; then
 else
     echo "Adding PUBKEY to authorized_keys..."
     echo "${PUBKEY}" >> ./.ssh/authorized_keys || { echo "Error appending to authorized_keys"; exit 1; }
+    chmod 600 ./.ssh/authorized_keys
 fi
