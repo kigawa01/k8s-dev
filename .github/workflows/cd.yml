@@ -1,5 +1,3 @@
-name: cd
-
 on:
   push:
     branches:
