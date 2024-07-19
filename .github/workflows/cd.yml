@@ -41,9 +41,8 @@ jobs:
 
       - name: BuildAndPushImageOnHarbor
         run: |
-          docker build -t \
-          ${{ env.harbor-repo }} \
-           -f ${{ env.dockerFile }} ${{ env.dockerArg }} ${{ env.dir }}
+          docker build -t ${{ env.harbor-repo }} \
+           -f ${{ env.dir }}/${{ env.dockerFile }} ${{ env.dockerArg }} ${{ env.dir }}
           docker push \
           ${{ env.harbor-repo }}
 
