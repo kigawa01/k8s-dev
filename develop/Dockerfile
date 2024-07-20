@@ -3,23 +3,21 @@ LABEL authors="kigawa"
 
 
 COPY entrypoint.sh /script/entrypoint.sh
-RUN apt update
+COPY init /script/init
+COPY lib /script/lib
 
-####################################################
-RUN apt install -y  openssh-server \
-    && mkdir /run/sshd
-ENV PUBKEY=""
-ENV USER="kigawa"
+RUN apt update \
+    && apt install -y \
+    openssh-server \
+    sudo \
+    && mkdir /run/sshd \
+
 COPY sshd_config /etc/ssh/sshd_config
 EXPOSE 22
+ENV PUBKEY=""
+ENV USER="kigawa"
 ENV HOST_ECDSA_KEY=""
 ENV HOST_ED25519_KEY=""
 ENV HOST_RSA_KEY=""
-####################################################
-RUN apt install -y sudo
-####################################################
-
-COPY init /script/init
-COPY lib /script/lib
 
 ENTRYPOINT ["bash","/script/entrypoint.sh"]
