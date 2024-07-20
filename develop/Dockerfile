@@ -16,6 +16,8 @@ ENV HOST_ECDSA_KEY=""
 ENV HOST_ED25519_KEY=""
 ENV HOST_RSA_KEY=""
 ####################################################
+RUN apt install -y sudo
+####################################################
 
 COPY init /script/init
 COPY lib /script/lib
