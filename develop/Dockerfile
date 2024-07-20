@@ -10,7 +10,7 @@ RUN apt update \
     && apt install -y \
     openssh-server \
     sudo \
-    && mkdir /run/sshd \
+    && mkdir /run/sshd
 
 COPY sshd_config /etc/ssh/sshd_config
 EXPOSE 22
