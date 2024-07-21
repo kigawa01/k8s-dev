@@ -16,12 +16,15 @@ RUN apt update \
     && curl -fsSL https://fnm.vercel.app/install | bash
 
 COPY sshd_config /etc/ssh/sshd_config
+
 EXPOSE 22
+
 ENV PUBKEY=""
 ENV USER="kigawa"
 ENV PASS="kigawa"
 ENV HOST_ECDSA_KEY=""
 ENV HOST_ED25519_KEY=""
 ENV HOST_RSA_KEY=""
+ENV INITIAL_CMD=""
 
 ENTRYPOINT ["bash","/script/entrypoint.sh"]
