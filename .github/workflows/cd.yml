@@ -25,6 +25,7 @@ jobs:
     steps:
       # checkout
       - uses: actions/checkout@v4
+      - run: ls /var/lib/
       - name: Cache
         uses: actions/cache@v3
         with:
