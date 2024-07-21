@@ -11,6 +11,7 @@ RUN apt update \
     openssh-server \
     sudo \
     inetutils-ping \
+    rsync \
     && mkdir /run/sshd
 
 COPY sshd_config /etc/ssh/sshd_config
