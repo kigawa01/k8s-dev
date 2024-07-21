@@ -10,6 +10,7 @@ RUN apt update \
     && apt install -y \
     openssh-server \
     sudo \
+    inetutils-ping \
     && mkdir /run/sshd
 
 COPY sshd_config /etc/ssh/sshd_config
