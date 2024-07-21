@@ -2,7 +2,7 @@
 
 set -ue
 
-bash -c "$INITIAL_CMD"
+bash -c "$CMD_INITIAL"
 
 for filename in /script/init/* ; do
   bash "$filename"
