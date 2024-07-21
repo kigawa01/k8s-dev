@@ -13,6 +13,7 @@ RUN apt update \
     inetutils-ping \
     rsync \
     curl \
+    unzpi \
     && mkdir /run/sshd \
     && curl -fsSL https://fnm.vercel.app/install | bash
 
