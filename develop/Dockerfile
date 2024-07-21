@@ -12,7 +12,8 @@ RUN apt update \
     sudo \
     inetutils-ping \
     rsync \
-    && mkdir /run/sshd
+    && mkdir /run/sshd \
+    && curl -fsSL https://fnm.vercel.app/install | bash
 
 COPY sshd_config /etc/ssh/sshd_config
 EXPOSE 22
