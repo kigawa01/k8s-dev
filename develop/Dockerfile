@@ -14,6 +14,7 @@ RUN apt update \
     rsync \
     curl \
     unzip \
+    git \
     && mkdir /run/sshd \
     && curl -fsSL https://fnm.vercel.app/install | bash
 
