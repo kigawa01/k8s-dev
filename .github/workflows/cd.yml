@@ -38,6 +38,7 @@ jobs:
             docker-
 
       - run: docker load -i /action-cache/docker-cache.tar
+        if: ${{ hashFiles('/action-cache/docker-cache.tar') != '' }}
 
       # cmd
       - name: preBuild
