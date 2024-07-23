@@ -21,17 +21,25 @@ jobs:
         harbor.kigawa.net/${{ matrix.conf.harbor-project }}/${{ matrix.conf.artifact-name }}:${{ github.ref_name }}-${{ github.sha }}
       dockerArg: ""
       dir: ${{ matrix.conf.dir }}
-
     steps:
       # checkout
       - uses: actions/checkout@v4
-      - run: ls /var/lib/
+
+        # load cache
       - name: Cache
         uses: actions/cache@v3
         with:
-          path: /var/lib/docker
-          key: docker
+          path: /action-cache
+          key: docker-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            docker-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}-${{ github.ref_name }}-
+            docker-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}-
+            docker-${{ matrix.conf.harbor-project }}-
+            docker-
 
+      - run: docker load $(docker images -q) -i /action-cache/docker-cache.tar
+
+      # cmd
       - name: preBuild
         if: ${{ env.preDockerBuildCmd }}
         run: ${{ env.preDockerBuildCmd }}
@@ -52,7 +60,9 @@ jobs:
           docker push \
           ${{ env.harbor-repo }}
 
-      # argo
+      # save cache
+      - run: docker save $(docker images -q) -o /action-cache/docker-cache.tar
+
       - name: checkout manifest repository
         uses: actions/checkout@v3
         with:
