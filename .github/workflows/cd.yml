@@ -37,7 +37,7 @@ jobs:
             docker-${{ matrix.conf.harbor-project }}-
             docker-
 
-      - run: docker load $(docker images -q) -i /action-cache/docker-cache.tar
+      - run: docker load -i /action-cache/docker-cache.tar
 
       # cmd
       - name: preBuild
