@@ -25,23 +25,6 @@ jobs:
       # checkout
       - uses: actions/checkout@v4
 
-        # load cache
-      - name: Cache
-        uses: actions/cache@v3
-        with:
-          path: /action-cache
-          key: docker-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}-${{ github.ref_name }}-${{ github.sha }}
-          restore-keys: |
-            docker-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}-${{ github.ref_name }}-
-            docker-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}-
-            docker-${{ matrix.conf.harbor-project }}-
-            docker-
-
-      - run: |
-          mkdir /action-cache/ || 
-          docker load -i /action-cache/docker-cache.tar
-        if: ${{ hashFiles('/action-cache/docker-cache.tar') != '' }}
-
       # cmd
       - name: preBuild
         if: ${{ env.preDockerBuildCmd }}
@@ -63,8 +46,6 @@ jobs:
           docker push \
           ${{ env.harbor-repo }}
 
-      # save cache
-      - run: docker save $(docker images -q) -o /action-cache/docker-cache.tar
 
       - name: checkout manifest repository
         uses: actions/checkout@v3
