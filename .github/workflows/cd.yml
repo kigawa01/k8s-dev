@@ -37,7 +37,9 @@ jobs:
             docker-${{ matrix.conf.harbor-project }}-
             docker-
 
-      - run: docker load -i /action-cache/docker-cache.tar
+      - run: |
+          mkdir /action-cache/ || 
+          docker load -i /action-cache/docker-cache.tar
         if: ${{ hashFiles('/action-cache/docker-cache.tar') != '' }}
 
       # cmd
