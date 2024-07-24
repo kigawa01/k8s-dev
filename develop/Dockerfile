@@ -17,7 +17,7 @@ RUN apt update \
     unzip \
     git \
     nano \
-    libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb \
+    libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libxtst6 xauth xvfb \
     && mkdir /run/sshd
 
 COPY sshd_config /etc/ssh/sshd_config
