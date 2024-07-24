@@ -18,7 +18,10 @@ RUN apt update \
     git \
     nano \
     libgtk2.0-0t64 libgtk-3-0t64 libgbm-dev libnotify-dev libnss3 libxss1 libxtst6 xauth xvfb libasound2t64 \
-    && mkdir /run/sshd
+    gnupg \
+    wget \
+    && mkdir /run/sshd \
+    && wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
 
 COPY sshd_config /etc/ssh/sshd_config
 
