@@ -21,7 +21,8 @@ RUN apt update \
     gnupg \
     wget \
     && mkdir /run/sshd \
-    && wget https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
+    && wget "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl \
+    && chmod +x /usr/local/bin/kubectl
 
 COPY sshd_config /etc/ssh/sshd_config
 
