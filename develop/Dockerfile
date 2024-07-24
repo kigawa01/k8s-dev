@@ -4,6 +4,7 @@ LABEL authors="kigawa"
 
 COPY entrypoint.sh /script/entrypoint.sh
 COPY init /script/init
+COPY user-init /script/user-init
 COPY lib /script/lib
 
 RUN apt update \
@@ -15,8 +16,7 @@ RUN apt update \
     curl \
     unzip \
     git \
-    && mkdir /run/sshd \
-    && curl -fsSL https://fnm.vercel.app/install | bash
+    && mkdir /run/sshd
 
 COPY sshd_config /etc/ssh/sshd_config
 
