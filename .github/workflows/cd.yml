@@ -29,8 +29,11 @@ jobs:
           path: hash
           key: hash-${{ matrix.conf.dir }}-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}
       - run: |
+          if [ ! -d hash ]; then
+            mkdir hash
+          fi
           if [ -f hash/hash ]; then
-            PREV_HASH=$(cat /hash/hash) 
+            PREV_HASH=$(cat hash/hash) 
           else
             PREV_HASH=""
           fi
