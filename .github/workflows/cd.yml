@@ -51,7 +51,7 @@ jobs:
           echo "$CURRENT" > hash/hash
           if [ "$PREV_HASH" == "$CURRENT" ]; then
             echo match hash
-            ECECUTE=0"
+            ECECUTE=0
           else
             echo not match hash
             ECECUTE=1
