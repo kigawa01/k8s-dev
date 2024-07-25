@@ -48,13 +48,14 @@ jobs:
             sha256sum | \
             cut -d ' ' -f 1)
           CURRENT="artifacts=$SHA256_OUTPUT"
+          echo "current hash: $CURRENT"
           echo "$CURRENT" > hash/hash
           if [ "$PREV_HASH" == "$CURRENT" ]; then
             echo match hash
-            ECECUTE=0
+            ECECUTE=1
           else
             echo not match hash
-            ECECUTE=1
+            ECECUTE=0
           fi
           echo "ECECUTE=$ECECUTE"
           set +ue
