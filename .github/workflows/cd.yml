@@ -54,6 +54,7 @@ jobs:
           CRRENT="artifacts=$SHA256_OUTPUT"
           echo "$CURRENT" > hash/hash
           HASH=$([ "$PREV_HASH" == "$CURRENT" ])
+          echo HASH=$HASH
 
       # cmd
       - name: preBuild
