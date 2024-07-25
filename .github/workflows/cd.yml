@@ -29,7 +29,7 @@ jobs:
           path: hash
           key: hash-${{ matrix.conf.dir }}-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}
       - run: |
-          if [ -f /hash/hash ]; then
+          if [ -f hash/hash ]; then
             PREV_HASH=$(cat /hash/hash) 
           else
             PREV_HASH=""
@@ -48,7 +48,7 @@ jobs:
             sha256sum | \
             cut -d ' ' -f 1)
           CRRENT="artifacts=$SHA256_OUTPUT"
-          echo "$CURRENT" > /hash/hash
+          echo "$CURRENT" > hash/hash
           HASH=$([ "$PREV_HASH" == "$CURRENT" ])
 
       # cmd
