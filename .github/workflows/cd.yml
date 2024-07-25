@@ -29,6 +29,7 @@ jobs:
           path: hash
           key: hash-${{ matrix.conf.dir }}-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}
       - run: |
+          set -ue
           if [ ! -d hash ]; then
             mkdir hash
           fi
