@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dev-mongo
+spec:
+  selector:
+    matchLabels:
+      app: dev-mongo
+  serviceName: dev-mongo-svc
+  template:
+    metadata:
+      labels:
+        app: dev-mongo
+    spec:
+      containers:
+        - name: dev-mongo
+          image: mongo
+          ports:
+            - containerPort: 27017
+          resources:
+            limits:
+              memory: 0.5Gi
+          env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: pass
+                  name: mongo-user
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: user
+                  name: mongo-user
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+            - name: mongo-config
+              mountPath: /data/configdb
+  volumeClaimTemplates:
+    - metadata:
+        name: dev-mongo-data
+      spec:
+        storageClassName: "rook-ceph-rbd"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+    - metadata:
+        name: dev-mongo-config
+      spec:
+        storageClassName: "rook-ceph-rbd"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
