@@ -30,7 +30,7 @@ jobs:
           key: hash-${{ matrix.conf.dir }}-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}
       - run: |
           if [ -f /hash/hash ]; then
-            cat /hash/hash >> $PREV_HASH
+            PREV_HASH=$(cat /hash/hash) 
           else
             PREV_HASH=""
           fi
@@ -47,7 +47,9 @@ jobs:
             cut -d ' ' -f 1 | \
             sha256sum | \
             cut -d ' ' -f 1)
-          HASH=$([ "$PREV_HASH" != "artifacts=$SHA256_OUTPUT" ])
+          CRRENT="artifacts=$SHA256_OUTPUT"
+          echo "$CURRENT" > /hash/hash
+          HASH=$([ "$PREV_HASH" == "$CURRENT" ])
 
       # cmd
       - name: preBuild
@@ -89,7 +91,7 @@ jobs:
           ${{ env.manifestFile }}
 
       - name: push
-        if: env.HASH 
+        if: env.HASH
         run: |
           git config user.name githubActions
           git config user.email bot@kigawa.net
