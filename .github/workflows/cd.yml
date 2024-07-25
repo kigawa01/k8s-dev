@@ -51,10 +51,10 @@ jobs:
           echo "$CURRENT" > hash/hash
           if [ "$PREV_HASH" == "$CURRENT" ]; then
             echo match hash
-            ECECUTE=""
+            ECECUTE=0"
           else
             echo not match hash
-            ECECUTE="true"
+            ECECUTE=1
           fi
           echo "ECECUTE=$ECECUTE"
           set +ue
