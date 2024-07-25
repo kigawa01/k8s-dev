@@ -33,6 +33,7 @@ jobs:
             mkdir hash
           fi
           if [ -f hash/hash ]; then
+            echo find cache
             PREV_HASH=$(cat hash/hash) 
           else
             PREV_HASH=""
