@@ -34,14 +34,14 @@ jobs:
           else
             PREV_HASH=""
           fi
-          echo "execute: find "${{ matrix.conf.dir }}" -type f -print0 | \  # 実際にハッシュ値を計算する部分
+          echo "execute: find "${{ matrix.conf.dir }}" -type f -print0 | \
             sort --zero-terminated | \
             xargs -0 sha256sum | \
             cut -d ' ' -f 1 | \
             sha256sum | \
             cut -d ' ' -f 1"
           SHA256_OUTPUT=$(\
-            find "${{ matrix.conf.dir }}" -type f -print0 | \  # 実際にハッシュ値を計算する部分
+            find "${{ matrix.conf.dir }}" -type f -print0 | \
             sort --zero-terminated | \
             xargs -0 sha256sum | \
             cut -d ' ' -f 1 | \
