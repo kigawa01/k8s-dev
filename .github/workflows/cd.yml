@@ -34,14 +34,19 @@ jobs:
           else
             PREV_HASH=""
           fi
-          set -x  # 後のパイプの処理がどこまで進んだかわかりやすくするために -x する
-          SHA256_OUTPUT=$(find ${{ matrix.conf.dir }} -type f -print0 | \  # 実際にハッシュ値を計算する部分
-          sort --zero-terminated | \
-          xargs -0 sha256sum | \
-          cut -d ' ' -f 1 | \
-          sha256sum | \
-          cut -d ' ' -f 1)
-          set +x  # -x を解除
+          echo "execute: find "${{ matrix.conf.dir }}" -type f -print0 | \  # 実際にハッシュ値を計算する部分
+            sort --zero-terminated | \
+            xargs -0 sha256sum | \
+            cut -d ' ' -f 1 | \
+            sha256sum | \
+            cut -d ' ' -f 1"
+          SHA256_OUTPUT=$(\
+            find "${{ matrix.conf.dir }}" -type f -print0 | \  # 実際にハッシュ値を計算する部分
+            sort --zero-terminated | \
+            xargs -0 sha256sum | \
+            cut -d ' ' -f 1 | \
+            sha256sum | \
+            cut -d ' ' -f 1)
           echo "artifacts=$SHA256_OUTPUT" >> $HASH
           echo "$HASH" > /hash/hash
 
