@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/cache@v3
         with:
-          path: hash
+          path: /hash
           key:
             hash-${{ matrix.conf.dir }}-${{ matrix.conf.harbor-project }}-${{ matrix.conf.artifact-name }}-${{ github.sha }}
           restore-keys: |
@@ -36,12 +36,12 @@ jobs:
             hash-
       - run: |
           set -ue
-          if [ ! -d hash ]; then
-            mkdir hash
+          if [ ! -d /hash ]; then
+            mkdir /hash
           fi
-          if [ -f hash/hash ]; then
+          if [ -f /hash/hash ]; then
             echo find cache
-            PREV_HASH=$(cat hash/hash) 
+            PREV_HASH=$(cat /hash/hash) 
             echo "PREV_HASH=$PREV_HASH"
           else
             PREV_HASH=""
@@ -55,8 +55,7 @@ jobs:
             cut -d ' ' -f 1)
           CURRENT="artifacts=$SHA256_OUTPUT"
           echo "current hash: $CURRENT"
-          echo "$CURRENT" | tee hash/hash
-          cat hash/hash
+          echo "$CURRENT" | tee /hash/hash
           [ "$PREV_HASH" != "$CURRENT" ]
         continue-on-error: true
         id: hash-cache
