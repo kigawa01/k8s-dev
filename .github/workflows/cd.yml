@@ -46,7 +46,7 @@ jobs:
             cut -d ' ' -f 1 | \
             sha256sum | \
             cut -d ' ' -f 1)
-          CRRENT="artifacts=$SHA256_OUTPUT"
+          CURRENT="artifacts=$SHA256_OUTPUT"
           echo "$CURRENT" > hash/hash
           HASH=$([ "$PREV_HASH" == "$CURRENT" ])
           echo "HASH=$HASH"
