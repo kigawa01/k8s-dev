@@ -22,7 +22,8 @@ RUN apt update \
       $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
       sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
     && sudo apt update \
-    && sudo apt install -y docker-ce-cli
+    && sudo apt install -y \
+    docker-ce-cli lsof
 COPY sshd_config /etc/ssh/sshd_config
 
 EXPOSE 22
