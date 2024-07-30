@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       preDockerBuildCmd: ""
-      manifest-repo: kigawa01/k8s-system
+      manifest-repo: kigawa01/k8s
       manifestFile: ./develop/develop.yml
       dockerFile: Dockerfile
       harbor-user: robot$develop
