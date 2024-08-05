@@ -22,9 +22,9 @@ RUN apt update \
       "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
       $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
       sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
-    && sudo apt update \
+    && sudo apt update  \
     && sudo apt install -y \
-    docker-ce-cli lsof clang tree \
+    docker-ce-cli lsof clang tree ruby-full \
     && tar -C /usr/local -xzf /usr/local/go1.22.5.linux-amd64.tar.gz \
     && rm /usr/local/go1.22.5.linux-amd64.tar.gz
 COPY sshd_config /etc/ssh/sshd_config
