@@ -6,6 +6,7 @@ COPY entrypoint.sh /script/entrypoint.sh
 COPY init /script/init
 COPY user-init /script/user-init
 COPY lib /script/lib
+ADD https://go.dev/dl/go1.22.5.linux-amd64.tar.gz /usr/local/
 
 RUN apt update \
     && apt install -y \
@@ -23,9 +24,10 @@ RUN apt update \
       sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
     && sudo apt update \
     && sudo apt install -y \
-    docker-ce-cli lsof clang tree 
+    docker-ce-cli lsof clang tree \
+    && tar -C /usr/local -xzf /usr/local/go1.22.5.linux-amd64.tar.gz \
+    && rm /usr/local/go1.22.5.linux-amd64.tar.gz
 COPY sshd_config /etc/ssh/sshd_config
-ADD https://go.dev/dl/go1.22.5.linux-amd64.tar.gz /usr/local/
 
 EXPOSE 22
 
