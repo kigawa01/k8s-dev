@@ -23,7 +23,9 @@ RUN apt update \
       sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
     && sudo apt update \
     && sudo apt install -y \
-    docker-ce-cli lsof clang tree
+    docker-ce-cli lsof clang tree \
+    && rm -rf /usr/local/go \
+    && tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gz
 COPY sshd_config /etc/ssh/sshd_config
 
 EXPOSE 22
