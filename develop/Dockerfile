@@ -31,7 +31,8 @@ RUN apt update \
     && sudo apt-get install apt-transport-https --yes \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" |  \
     sudo tee /etc/apt/sources.list.d/helm-stable-debian.list \
-    && sudo apt update \
+RUN \
+    sudo apt update \
     && sudo apt install -y helm postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
     gcc-mingw-w64 g++-mingw-w64
 COPY sshd_config /etc/ssh/sshd_config
