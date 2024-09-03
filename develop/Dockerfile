@@ -30,7 +30,7 @@ RUN apt update \
     && curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null \
     && sudo apt-get install apt-transport-https --yes \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" |  \
-    sudo tee /etc/apt/sources.list.d/helm-stable-debian.list \
+    sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 RUN \
     sudo apt update \
     && sudo apt install -y helm postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
