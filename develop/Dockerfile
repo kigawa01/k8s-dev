@@ -33,7 +33,7 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/h
     sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 RUN sudo apt update \
     && sudo apt install -y helm postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
-    gcc-mingw-w64 g++-mingw-w64 dnsutils traceroute net-tools
+    gcc-mingw-w64 g++-mingw-w64 dnsutils traceroute net-tools default-jdk
 COPY sshd_config /etc/ssh/sshd_config
 
 EXPOSE 22
