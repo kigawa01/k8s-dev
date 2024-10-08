@@ -1,0 +1,72 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: develop
+  template:
+    metadata:
+      labels:
+        app: develop
+    spec:
+      containers:
+        - name: develop
+          image: 'harbor.kigawa.net/library/dev-server:main-ac49c622c5edb9293fea36291505b16f4ec55dd1'
+          resources:
+            limits:
+              memory: 8Gi
+          ports:
+            - containerPort: 22
+          env:
+            - name: PUBKEY
+              value: |
+                ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaU5jalC1sPYcllYrw2DH7ME/P/RtI4VBJEJCEHbWND kigaw@kigawa-main
+            - name: USER
+              value: kigawa
+            - name: PASS
+              valueFrom:
+                secretKeyRef:
+                  key: pass
+                  name: pass
+            - name: HOST_ECDSA_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: ssh_host_ecdsa_key
+                  name: ssh-key
+            - name: HOST_ED25519_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: ssh_host_ed25519_key
+                  name: ssh-key
+            - name: HOST_RSA_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: ssh_host_rsa_key
+                  name: ssh-key
+            - name: CMD_INITIAL
+              value: ""
+            - name: CMD_USER_CREATED
+              value: |
+                chmod 700 /home/kigawa
+                chown kigawa:kigawa /home/kigawa
+          volumeMounts:
+            - mountPath: /fs
+              name: fs
+            - mountPath: /home/kigawa
+              name: home
+            - mountPath: /root
+              name: root
+      volumes:
+        - name: fs
+          persistentVolumeClaim:
+            claimName: develop-pvc
+        - name: home
+          persistentVolumeClaim:
+            claimName: develop-home-pvc
+        - name: root
+          persistentVolumeClaim:
+            claimName: develop-root-pvc

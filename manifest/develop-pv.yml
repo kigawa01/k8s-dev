@@ -1,0 +1,24 @@
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: develop-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 64Gi
+  csi:
+    driver: rook-ceph.cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      name: rook-csi-cephfs-node-user
+      namespace: rook-ceph
+    volumeAttributes:
+      "clusterID": "rook-ceph"
+      "fsName": "rook-cephfs"
+      "staticVolume": "true"
+      "rootPath": "/"
+    volumeHandle: develop-develop-pv
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
