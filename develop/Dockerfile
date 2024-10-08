@@ -9,17 +9,8 @@ COPY lib /script/lib
 
 RUN apt update \
     && apt install -y \
-    openssh-server \
-    sudo \
-    inetutils-ping \
-    rsync \
-    curl \
-    unzip \
-    git \
-    nano \
-    libgtk2.0-0t64 libgtk-3-0t64 libgbm-dev libnotify-dev libnss3 libxss1 libxtst6 xauth xvfb libasound2t64 \
-    gnupg \
-    wget \
+    openssh-server sudo inetutils-ping rsync curl unzip git nano libgtk2.0-0t64 libgtk-3-0t64 libgbm-dev \
+    libnotify-dev libnss3 libxss1 libxtst6 xauth xvfb libasound2t64 gnupg wget uidmap libseccomp-dev  \
     && mkdir /run/sshd \
     && wget "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl
