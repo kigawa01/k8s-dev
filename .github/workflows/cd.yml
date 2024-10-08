@@ -48,8 +48,9 @@ jobs:
 #          ${{ env.harbor-repo }}
       - uses: docker/build-push-action@v5
         with:
-          file: ./docker/Dockerfile
-          push: ${{ env.dir }}/${{ env.dockerFile }}
+          context: ${{ env.dir }}
+          file: ${{ env.dir }}/${{ env.dockerFile }}
+          push: true
           tags: ${{ env.harbor-repo }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
