@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 LABEL authors="kigawa"
 
 
@@ -6,7 +6,8 @@ COPY entrypoint.sh /script/entrypoint.sh
 COPY init /script/init
 COPY user-init /script/user-init
 COPY lib /script/lib
-ADD https://go.dev/dl/go1.22.5.linux-amd64.tar.gz /usr/local/
+RUN curl -SL https://go.dev/dl/go1.22.5.linux-amd64.tar.gz -o /usr/local/go1.22.5.linux-amd64.tar.gz
+
 
 RUN apt update \
     && apt install -y \
@@ -28,11 +29,11 @@ RUN mkdir /run/sshd \
 RUN tar -C /usr/local -xzf /usr/local/go1.22.5.linux-amd64.tar.gz \
     && rm /usr/local/go1.22.5.linux-amd64.tar.gz \
     && curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null \
-    && sudo apt-get install apt-transport-https --yes
+    && apt-get install apt-transport-https --yes
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" |  \
-    sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-RUN sudo apt update \
-    && sudo apt install -y helm postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
+   tee /etc/apt/sources.list.d/helm-stable-debian.list
+RUN apt update \
+    && apt install -y helm postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
     gcc-mingw-w64 g++-mingw-w64 dnsutils traceroute net-tools default-jdk
 COPY sshd_config /etc/ssh/sshd_config
 
@@ -47,4 +48,4 @@ ENV HOST_RSA_KEY=""
 ENV CMD_INITIAL=""
 ENV CMD_USER_CREATED=""
 
-ENTRYPOINT ["bash","/script/entrypoint.sh"]
+ENTRYPOINT ["exec","/script/entrypoint.sh"]

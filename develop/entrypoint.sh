@@ -12,5 +12,8 @@ for filename in /script/user-init/* ; do
   su "$USER" -c "bash $filename"
 done
 
+sudo apt update
+sudo apt upgrade -y
+
 echo "Starting sshd..."
 /usr/sbin/sshd -D -e
