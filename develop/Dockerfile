@@ -6,8 +6,7 @@ COPY entrypoint.sh /script/entrypoint.sh
 COPY init /script/init
 COPY user-init /script/user-init
 COPY lib /script/lib
-RUN curl -SL https://go.dev/dl/go1.22.5.linux-amd64.tar.gz -o /usr/local/go1.22.5.linux-amd64.tar.gz
-
+ADD https://go.dev/dl/go1.22.5.linux-amd64.tar.gz /usr/local/
 
 RUN apt update \
     && apt install -y \
