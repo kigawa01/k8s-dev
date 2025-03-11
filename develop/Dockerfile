@@ -47,4 +47,4 @@ ENV HOST_RSA_KEY=""
 ENV CMD_INITIAL=""
 ENV CMD_USER_CREATED=""
 
-ENTRYPOINT ["exec","/script/entrypoint.sh"]
+ENTRYPOINT ["/script/entrypoint.sh"]
