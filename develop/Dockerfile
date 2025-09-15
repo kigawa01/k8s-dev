@@ -29,8 +29,6 @@ RUN tar -C /usr/local -xzf /usr/local/go1.22.5.linux-amd64.tar.gz \
     && rm /usr/local/go1.22.5.linux-amd64.tar.gz \
     && curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null \
     && apt-get install apt-transport-https --yes
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" |  \
-   tee /etc/apt/sources.list.d/helm-stable-debian.list
 RUN apt update \
     && apt install -y helm postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
     gcc-mingw-w64 g++-mingw-w64 dnsutils traceroute net-tools default-jdk \
