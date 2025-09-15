@@ -8,6 +8,16 @@ COPY user-init /script/user-init
 COPY lib /script/lib
 ADD https://go.dev/dl/go1.22.5.linux-amd64.tar.gz /usr/local/
 
+ENV PUBKEY=""
+ENV USER="kigawa"
+ENV PASS="kigawa"
+ENV HOST_ECDSA_KEY=""
+ENV HOST_ED25519_KEY=""
+ENV HOST_RSA_KEY=""
+ENV CMD_INITIAL=""
+ENV CMD_USER_CREATED=""
+ENV CMD_USER_PREINIT=""
+
 RUN apt update \
     && apt install -y \
     openssh-server sudo inetutils-ping rsync curl unzip git nano libgtk2.0-0t64 libgtk-3-0t64 libgbm-dev \
@@ -27,23 +37,13 @@ RUN mkdir /run/sshd \
     docker-ce-cli lsof clang tree ruby-full g++ make libyaml-dev
 RUN tar -C /usr/local -xzf /usr/local/go1.22.5.linux-amd64.tar.gz \
     && rm /usr/local/go1.22.5.linux-amd64.tar.gz \
-    && curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null \
     && apt-get install apt-transport-https --yes
 RUN apt update \
-    && apt install -y helm postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
+    && apt install -y postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
     gcc-mingw-w64 g++-mingw-w64 dnsutils traceroute net-tools default-jdk \
     && chmod +x /script/entrypoint.sh
 COPY sshd_config /etc/ssh/sshd_config
 
 EXPOSE 22
-
-ENV PUBKEY=""
-ENV USER="kigawa"
-ENV PASS="kigawa"
-ENV HOST_ECDSA_KEY=""
-ENV HOST_ED25519_KEY=""
-ENV HOST_RSA_KEY=""
-ENV CMD_INITIAL=""
-ENV CMD_USER_CREATED=""
 
 ENTRYPOINT ["/script/entrypoint.sh"]

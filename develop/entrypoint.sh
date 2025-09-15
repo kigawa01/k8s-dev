@@ -8,6 +8,9 @@ for filename in /script/init/* ; do
   bash "$filename"
 done
 
+if [ ! -z "${CMD_USER_PREINIT:-}" ]; then
+su "$USER" -c "${CMD_USER_PREINIT}"
+fi
 for filename in /script/user-init/* ; do
   su "$USER" -c "bash $filename"
 done
