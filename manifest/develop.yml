@@ -16,6 +16,7 @@ spec:
       containers:
         - name: develop
           image: 'harbor.kigawa.net/library/dev-server:main-ac49c622c5edb9293fea36291505b16f4ec55dd1'
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
               memory: 8Gi

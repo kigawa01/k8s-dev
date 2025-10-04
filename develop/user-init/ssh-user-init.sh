@@ -9,7 +9,7 @@ echo "Checking if ./.ssh directory exists..."
 if [ ! -d ./.ssh ]; then
     mkdir "./.ssh" || { echo "Error creating directory './.ssh'"; exit 1; }
 fi
-
+chmod 700 ./.ssh
 echo "Checking if PUBKEY variable is set..."
 if [ -z "${PUBKEY:-}" ]; then
     echo "PUBKEY is unset or set to the empty string"

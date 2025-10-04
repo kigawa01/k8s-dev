@@ -3,7 +3,7 @@
 set -ue
 
 
-rm /etc/ssh/*key
+rm /etc/ssh/*key || true
 
 echo "$HOST_ECDSA_KEY" > /etc/ssh/ssh_host_ecdsa_key
 echo "$HOST_ED25519_KEY" > /etc/ssh/ssh_host_ed25519_key
