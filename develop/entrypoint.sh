@@ -18,5 +18,9 @@ done
 sudo apt update
 sudo apt upgrade -y
 
+if [ ! -f /etc/ssh/sshd_config ]; then
+  echo '' > /etc/ssh/sshd_config
+fi
+
 echo "Starting sshd..."
 /usr/sbin/sshd -D -e
