@@ -10,3 +10,7 @@ echo "$HOST_ED25519_KEY" > /etc/ssh/ssh_host_ed25519_key
 echo "$HOST_RSA_KEY" > /etc/ssh/ssh_host_rsa_key
 
 chmod 600 /etc/ssh/*key
+
+if [ ! -f /etc/ssh/sshd_config ]; then
+  echo '' > /etc/ssh/sshd_config
+fi
