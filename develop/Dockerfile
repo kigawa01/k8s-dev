@@ -27,15 +27,9 @@ RUN apt update \
     && wget "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl \
     && sudo install -m 0755 -d /etc/apt/keyrings \
-    && sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc \
-    && sudo chmod a+r /etc/apt/keyrings/docker.asc \
-    && echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
     && sudo apt update  \
     && sudo apt install -y \
-      docker-ce-cli lsof clang tree ruby-full g++ make libyaml-dev \
+      lsof clang tree ruby-full g++ make libyaml-dev \
     && tar -C /usr/local -xzf /usr/local/go1.22.5.linux-amd64.tar.gz \
     && rm /usr/local/go1.22.5.linux-amd64.tar.gz \
     && apt-get install apt-transport-https --yes \
