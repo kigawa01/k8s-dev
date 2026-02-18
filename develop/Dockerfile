@@ -18,6 +18,9 @@ ENV CMD_INITIAL=""
 ENV CMD_USER_CREATED=""
 ENV CMD_USER_PREINIT=""
 
+ENV ANDROID_HOME=/opt/android-sdk
+ENV PATH="${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${PATH}"
+
 RUN apt update \
     && apt install -y \
         openssh-server sudo inetutils-ping rsync curl unzip git nano libgtk2.0-0t64 libgtk-3-0t64 libgbm-dev \
@@ -45,8 +48,8 @@ RUN apt update \
     mv /tmp/cmdline-tools-extract/cmdline-tools "${ANDROID_HOME}/cmdline-tools/latest" && \
     rm -f /tmp/cmdline-tools.zip && \
     rm -rf /tmp/cmdline-tools-extract && \
-    yes | sdkmanager --licenses > /dev/null && \
-    sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+    yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null && \
+    ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 
 
 COPY sshd_config /etc/ssh/sshd_config
