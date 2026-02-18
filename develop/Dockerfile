@@ -36,7 +36,10 @@ RUN apt update \
     && apt update \
     && apt install -y postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
         gcc-mingw-w64 g++-mingw-w64 dnsutils traceroute net-tools default-jdk \
-    && chmod +x /script/entrypoint.sh
+    && chmod +x /script/entrypoint.sh \
+    && curl -L -o devspace "https://github.com/loft-sh/devspace/releases/latest/download/devspace-linux-amd64" \
+    && sudo install -c -m 0755 devspace /usr/local/bin
+
 COPY sshd_config /etc/ssh/sshd_config
 
 EXPOSE 22
