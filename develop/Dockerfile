@@ -38,7 +38,16 @@ RUN apt update \
         gcc-mingw-w64 g++-mingw-w64 dnsutils traceroute net-tools default-jdk \
     && chmod +x /script/entrypoint.sh \
     && curl -L -o devspace "https://github.com/loft-sh/devspace/releases/latest/download/devspace-linux-amd64" \
-    && sudo install -c -m 0755 devspace /usr/local/bin
+    && sudo install -c -m 0755 devspace /usr/local/bin \
+    && mkdir -p "${ANDROID_HOME}/cmdline-tools" && \
+    wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip && \
+    unzip -q /tmp/cmdline-tools.zip -d /tmp/cmdline-tools-extract && \
+    mv /tmp/cmdline-tools-extract/cmdline-tools "${ANDROID_HOME}/cmdline-tools/latest" && \
+    rm -f /tmp/cmdline-tools.zip && \
+    rm -rf /tmp/cmdline-tools-extract && \
+    yes | sdkmanager --licenses > /dev/null && \
+    sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+
 
 COPY sshd_config /etc/ssh/sshd_config
 
