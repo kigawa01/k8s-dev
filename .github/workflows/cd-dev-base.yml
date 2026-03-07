@@ -20,5 +20,5 @@ jobs:
       harborProject: "library"
       repository: ""
       harborUser: "robot$develop"
-      dockerFile: './Dockerfile'
+      dockerFile: './dev-base/Dockerfile'
       context: './dev-base'
