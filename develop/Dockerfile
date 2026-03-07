@@ -52,8 +52,7 @@ RUN apt update \
     && rm -rf /tmp/cmdline-tools-extract \
     && yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null \
     && ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager \
-      "platform-tools" "platforms;android-36" "build-tools;36.0.0" \
-    && curl -fsSL https://opencode.ai/install | bash
+      "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 
 
 COPY sshd_config /etc/ssh/sshd_config
