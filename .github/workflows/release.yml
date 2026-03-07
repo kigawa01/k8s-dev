@@ -15,6 +15,9 @@ on:
       repository:
         required: true
         type: string
+      harborUser:
+        required: true
+        type: string
       dockerFile:
         required: false
         default: "./Dockerfile"

@@ -19,4 +19,5 @@ jobs:
       manifestFile: ""
       harborProject: "library"
       repository: ""
+      harborUser: "robot$develop"
       dockerFile: './dev-base/Dockerfile'
