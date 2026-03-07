@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - dev-base
+      - .github/workflows/cd-dev-base.yml
+      - .github/workflows/release.yml
     branches:
       - main
 
