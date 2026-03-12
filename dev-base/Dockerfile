@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM eclipse-temurin:25.0.2_10-jdk-noble
 LABEL authors="kigawa"
 
 
