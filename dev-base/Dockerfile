@@ -39,5 +39,6 @@ RUN apt update \
     && yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null \
     && ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager \
       "platform-tools" "platforms;android-36" "build-tools;36.0.0" \
-    && curl -fsSL https://opencode.ai/install | bash
+    && curl -fsSL https://opencode.ai/install | bash \
+    && curl -fsSL https://claude.ai/install.sh | bash
 
