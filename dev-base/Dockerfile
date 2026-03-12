@@ -40,5 +40,6 @@ RUN apt update \
     && ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager \
       "platform-tools" "platforms;android-36" "build-tools;36.0.0" \
     && curl -fsSL https://opencode.ai/install | bash \
-    && curl -fsSL https://claude.ai/install.sh | bash
+    && curl -fsSL https://claude.ai/install.sh | bash \
+    && ln -sf /root/.claude/local/claude /usr/local/bin/claude
 
