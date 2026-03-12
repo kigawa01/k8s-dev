@@ -2,7 +2,7 @@ name: cd-dev-base
 on:
   push:
     paths:
-      - dev-base
+      - dev-base/**
       - .github/workflows/cd-dev-base.yml
       - .github/workflows/release.yml
     branches:
