@@ -27,8 +27,6 @@ RUN apt update \
     && apt update \
     && apt install -y postgresql-client postgresql-client-common libpq-dev mingw-w64 binutils-mingw-w64 \
         gcc-mingw-w64 g++-mingw-w64 dnsutils traceroute net-tools default-jdk \
-    && curl -L -o devspace "https://github.com/loft-sh/devspace/releases/latest/download/devspace-linux-amd64" \
-    && sudo install -c -m 0755 devspace /usr/local/bin \
     && mkdir -p "${ANDROID_HOME}/cmdline-tools" \
     && wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip \
       -O /tmp/cmdline-tools.zip \
@@ -39,7 +37,11 @@ RUN apt update \
     && yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null \
     && ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager \
       "platform-tools" "platforms;android-36" "build-tools;36.0.0" \
-    && curl -fsSL https://opencode.ai/install | bash \
-    && curl -fsSL https://claude.ai/install.sh | bash \
-    && ln -sf /root/.claude/local/claude /usr/local/bin/claude
+    && curl -fsSL https://claude.ai/install.sh | bash && \
+    find / -name "claude" -type f 2>/dev/null && \
+    CLAUDE_BIN=$(find /root -name "claude" -type f 2>/dev/null | head -1) && \
+    [ -n "$CLAUDE_BIN" ] && ln -sf "$CLAUDE_BIN" /usr/local/bin/claude || echo "claude not found"
 
+ENV PATH="/root/.local/bin:${PATH}"
+
+ENV JAVA_HOME=/opt/java/openjdk
